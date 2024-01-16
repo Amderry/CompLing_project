@@ -13,9 +13,13 @@ async def get_working_proxies(proxies):
 def get_proxy_list():
     proxies = asyncio.Queue()
     broker = Broker(proxies)
-    tasks = asyncio.gather(
-        broker.find(types=['HTTPS'], limit=1, timeout=8, max_tries=3),
-        get_working_proxies(proxies))
+    try:
+        tasks = asyncio.gather(
+            broker.find(types=['HTTPS'], limit=1, timeout=8, max_tries=3),
+            asyncio.wait_for(get_working_proxies(proxies), timeout=5))
 
-    loop = asyncio.get_event_loop()
-    loop.run_until_complete(tasks)
+        loop = asyncio.get_event_loop()
+        loop.run_until_complete(tasks)
+    except Exception as e:
+        print(e)
+

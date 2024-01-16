@@ -4,7 +4,7 @@ from urllib3 import Timeout
 import get_proxies
 import psycopg2
 
-page = 235
+page = 460
 counter = 0
 url = "https://bloknot-volgograd.ru/?PAGEN_1="
 
