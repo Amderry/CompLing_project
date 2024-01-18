@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-from services import get_proxies
+from services.web_parser import get_proxies
 import psycopg2
 
 page = 460
@@ -42,7 +42,7 @@ def fetch_data(url, proxies, counter, page):
                     counter %= len(proxies)
                 if i % 4 == 0:
                     get_proxies.get_proxy_list()
-                    with open("proxy_list.txt", "r") as f:
+                    with open("../../proxy_list.txt", "r") as f:
                         proxies = f.read().split("\n")
         return 1
     else:
@@ -51,7 +51,7 @@ def fetch_data(url, proxies, counter, page):
 
 while True:
     get_proxies.get_proxy_list()
-    with open("proxy_list.txt", "r") as f:
+    with open("../../proxy_list.txt", "r") as f:
         proxies = f.read().split("\n")
     for i in range(30):
         try:
@@ -67,7 +67,7 @@ while True:
             counter %= len(proxies)
         if i % 4 == 0:
             get_proxies.get_proxy_list()
-            with open("proxy_list.txt", "r") as f:
+            with open("../../proxy_list.txt", "r") as f:
                 proxies = f.read().split("\n")
 
 
