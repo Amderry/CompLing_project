@@ -3,7 +3,7 @@ from data.models.news import news
 from services.text_editor import text_editor_service
 
 def get_page_info(url):
-    conn = psycopg2.connect(dbname='news', user='postgres', password='1234', host='localhost')
+    conn = psycopg2.connect(dbname='news', user='comp_ling', password='1912R', host='51.250.89.7', port=5432)
     cursor = conn.cursor()
     cursor.execute(
         f"SELECT * FROM news_table nt WHERE nt.\"ref\" = '{url}'")

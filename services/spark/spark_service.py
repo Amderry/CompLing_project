@@ -66,6 +66,7 @@ def save_model(model):
 
 def find_synonyms(word):
     model = Word2VecModel.load("data/v2w_model/")
+    print(model)
     df = model.findSynonyms(word, 10).select("word", fmt("similarity", 5).alias("similarity"))
     synonyms_dict = dict((row.asDict()['word'], row.asDict()['similarity']) for row in df.collect())
     return synonyms_dict
