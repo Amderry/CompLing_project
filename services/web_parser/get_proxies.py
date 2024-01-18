@@ -2,7 +2,7 @@ import asyncio
 from proxybroker import Broker
 
 async def get_working_proxies(proxies):
-    with open("../proxy_list.txt", "w") as file:
+    with open("../../proxy_list.txt", "w") as file:
         while True:
             proxy = await proxies.get()
             if proxy is None: break
