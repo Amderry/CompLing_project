@@ -83,8 +83,8 @@
   ```json
   {
   "synonyms": {
-    "string": float, 
-    "string": float
+    "string": "float", 
+    "string": "float"
     }
   }
   ```
