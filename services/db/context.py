@@ -36,3 +36,4 @@ def get_sights():
     cursor.close()
     conn.close()
     return sights
+

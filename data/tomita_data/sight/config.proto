@@ -1,0 +1,23 @@
+encoding "utf8"; // указываем кодировку, в которой написан конфигурационный файл
+
+TTextMinerConfig {
+  Dictionary = "sightdic.gzt"; // путь к корневому словарю
+
+  PrettyOutput = "PrettyOutput.html";
+
+  //Input = {
+    //File = "test1.txt"; // путь к входному файлу
+  //}
+  Articles = [
+    { Name = "объект" } // название статьи в корневом словаре,
+                         // которая содержит запускаемую грамматику
+  ]
+  Facts = [
+    { Name = "Sight" }
+  ]
+
+  Output = {
+    Format = 0;
+    Encoding = "utf8"
+  }
+}
