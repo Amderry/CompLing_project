@@ -35,14 +35,13 @@ def get_spark_info(session, text):
     stop_words = StopWordsRemover.loadDefaultStopWords('russian')
     remover = StopWordsRemover(inputCol='words', outputCol='filtered', stopWords=stop_words)
     filtered = remover.transform(words)
-
-    filtered_words = filtered.collect()[0].asDict()['filtered']
+    filtered_words = [row for row in filtered.collect()[0].asDict()['filtered'] if row != '']
 
     # Посчитать значения TF
     vectorizer = CountVectorizer(inputCol='filtered', outputCol='raw_features').fit(filtered)
     featurized_data = vectorizer.transform(filtered)
     featurized_data.cache()
-    vocabulary = vectorizer.vocabulary
+    vocabulary = [row for row in vectorizer.vocabulary[:11] if row != '']
 
 
     # Посчитать значения DF
