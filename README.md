@@ -91,14 +91,14 @@
   
 - GET `/api/v1.0/page-info/sentiment`
 
-**Описание:** вывод десяти контекстных синонимов к слову word
-
-  **Формат выходного json:**
-  ```json
-  {
-  "sentiments": {
-    "string": "string", 
-    "string": "string"
+  **Описание:** вывод десяти контекстных синонимов к слову word
+  
+    **Формат выходного json:**
+    ```json
+    {
+    "sentiments": {
+      "string": "string", 
+      "string": "string"
+      }
     }
-  }
-  ```
+    ```
