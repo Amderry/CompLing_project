@@ -13,10 +13,9 @@ app = Flask(__name__)
 @app.route('/api/v1.0/page-info', methods=['GET'])
 def get_page():
     try:
-        print(request.remote_addr)
         url = request.args.get('page-addr')
         page = context.get_page_info(url)
-        tmp_service.save_tmp(page, hash(request.remote_addr))
+        tmp_service.save_tmp(page)
         return jsonify({'title': page.title, 'text': page.text, 'date': page.date})
     except:
         abort(404)
@@ -24,7 +23,7 @@ def get_page():
 @app.route('/api/v1.0/page-info/common-words', methods=['GET'])
 def get_common_words():
     try:
-        page = tmp_service.load_tmp(hash(request.remote_addr))
+        page = tmp_service.load_tmp()
         filtered, sorted = spark_service.get_spark_info(session, page.text)
         return jsonify({'words': sorted})
     except:
@@ -34,7 +33,7 @@ def get_common_words():
 @app.route('/api/v1.0/page-info/summarized', methods=['GET'])
 def get_summarize():
     try:
-        page = tmp_service.load_tmp(hash(request.remote_addr))
+        page = tmp_service.load_tmp()
         summarized = sber_service.summarize(page.text)
         return jsonify({'summarized': summarized})
     except:
@@ -45,7 +44,7 @@ def get_summarize():
 @app.route('/api/v1.0/page-info/rewrited', methods=['GET'])
 def get_rewrited():
     try:
-        page = tmp_service.load_tmp(hash(request.remote_addr))
+        page = tmp_service.load_tmp()
         rewrited = sber_service.rewrite(page.text)
         return jsonify({'rewrited': rewrited})
     except:
@@ -55,7 +54,7 @@ def get_rewrited():
 @app.route('/api/v1.0/page-info/vip-persons', methods=['GET'])
 def get_vip_persons():
     try:
-        page = tmp_service.load_tmp(hash(request.remote_addr))
+        page = tmp_service.load_tmp()
         vip_persons = tomita_service.find_vip_persons(page.text)
         return jsonify({'vip_persons': list(vip_persons)})
     except xml.etree.ElementTree.ParseError as ex:
@@ -67,7 +66,7 @@ def get_vip_persons():
 @app.route('/api/v1.0/page-info/sights', methods=['GET'])
 def get_sights():
     try:
-        page = tmp_service.load_tmp(hash(request.remote_addr))
+        page = tmp_service.load_tmp()
         sights = tomita_service.find_sights(page.text)
         return jsonify({'sights': list(sights)})
     except xml.etree.ElementTree.ParseError as ex:
@@ -89,9 +88,9 @@ def get_word_synonyms():
 @app.route('/api/v1.0/page-info/sentiment', methods=['GET'])
 def get_sentiment():
     try:
-        page = tmp_service.load_tmp(hash(request.remote_addr))
+        page = tmp_service.load_tmp()
         response = dostoevsky_service.get_sentiment(page.text)
-        return jsonify({'synonyms': response})
+        return jsonify({'sentiments': response})
     except:
         abort(404)
 
@@ -108,7 +107,6 @@ if __name__ == '__main__':
     app.config['JSON_AS_ASCII'] = False
     app.run(host="127.0.0.1", port=8080, debug=True)
     session.stop()
-
 
 
 
