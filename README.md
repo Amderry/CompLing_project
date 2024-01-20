@@ -3,6 +3,9 @@
 
 В данном репозитории находится сервис для обработки содержания новостного сайта. 
 В `controllers/main_controller/main_controller.py` содержатся методы API, с помощью которых чат-бот выводит информацию для пользователя.
+## Пример использования телеграм бота
+![image](https://github.com/Amderry/CompLing_project/assets/92733798/f6a7c4c7-6325-4008-8917-697e93191519)
+
 
 ## Описание методов API
 - GET `/api/v1.0/page-info?page-addr=`
